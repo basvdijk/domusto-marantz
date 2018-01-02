@@ -16,7 +16,6 @@
   "author": "Bas van Dijk",
   "license": "copyright",
   "dependencies": {
-    "domusto-types": "github:basvdijk/domusto-types",
     "marantz-avr": "^1.1.0"
   },
   "devDependencies": {
