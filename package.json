@@ -1,27 +1,21 @@
 {
   "name": "domusto-marantz",
   "version": "1.0.0",
-  "description": "DOMUSTO home automation plugin for Marantz AVR devices",
-  "main": "dist/main/cjs/index.js",
-  "types": "target/main/esm/index.d.ts",
-  "module": "target/main/esm/fesm.js",
+  "description": "``` plugin:    Marantz author:    Bas van Dijk category:  system version:   0.0.1 website:   http://domusto.com ```",
   "scripts": {
-    "build-cjs": "rm -rf target/main/cjs && npx tsc -p tsconfig-cjs.json",
-    "build-esm": "rm -rf target/main/esm && npx tsc -p tsconfig-esm.json && npx rollup target/main/esm/index.js -o target/main/esm/fesm.js",
-    "build-all": "npm run build-cjs && npm run build-esm"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [
-    "domusto"
-  ],
-  "author": "Bas van Dijk",
-  "license": "copyright",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basvdijk/domusto-marantz.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/basvdijk/domusto-marantz/issues"
+  },
+  "homepage": "https://github.com/basvdijk/domusto-marantz#readme",
   "dependencies": {
     "marantz-avr": "^1.1.0"
-  },
-  "devDependencies": {
-    "@types/node": "^8.5.2",
-    "rollup": "^0.41.6",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "typescript": "^2.6.2"
   }
 }
