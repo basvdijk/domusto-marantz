@@ -1,1 +1,1 @@
-export * from './domusto-marantz';
+export default './domusto-marantz';
