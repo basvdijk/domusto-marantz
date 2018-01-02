@@ -1,0 +1,23 @@
+{
+  "name": "domusto-marantz",
+  "version": "1.0.0",
+  "description": "DOMUSTO home automation plugin for Marantz AVR devices",
+  "scripts": {
+    "build": "npx tsc",
+    "dev": "npx tsc -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "domusto"
+  ],
+  "author": "Bas van Dijk",
+  "license": "copyright",
+  "dependencies": {
+    "domusto-types": "github:basvdijk/domusto-types",
+    "marantz-avr": "^1.1.0"
+  },
+  "devDependencies": {
+    "@types/node": "^8.5.2",
+    "typescript": "^2.6.2"
+  }
+}
