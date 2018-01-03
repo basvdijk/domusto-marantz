@@ -18,7 +18,7 @@ description:  Control your Marantz receiver e.g. power, volume, mute etc.
 ## Installation
 
 Execute in the domusto-server folder:
-```
+```sh
 git clone git@github.com:basvdijk/domusto-marantz.git src/plugins/domusto-marantz
 npm install marantz-avr
 ```
