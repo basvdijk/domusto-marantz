@@ -16,8 +16,10 @@ description:  Control your Marantz receiver e.g. power, volume, mute etc.
 - Marantz SR6010
 
 ## Installation
+
+Execute in the domusto-server folder:
 ```
-git clone git@github.com:basvdijk/marantz-avr.git src/plugins/
+git clone git@github.com:basvdijk/domusto-marantz.git src/plugins/domusto-marantz
 npm install marantz-avr
 ```
 
