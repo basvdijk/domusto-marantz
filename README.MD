@@ -1,11 +1,12 @@
-# Marantz
+# DOMUSTO marantz plugin
 
 ```
-plugin:    Marantz
-author:    Bas van Dijk
-category:  system
-version:   0.0.1
-website:   http://domusto.com
+plugin:       Marantz
+author:       Bas van Dijk
+category:     system
+version:      0.0.1
+website:      http://domusto.com
+description:  Control your Marantz receiver e.g. power, volume, mute etc.
 ```
 
 ## Hardware needed
@@ -13,6 +14,12 @@ website:   http://domusto.com
 
 ## Tested with
 - Marantz SR6010
+
+## Installation
+```
+git clone git@github.com:basvdijk/marantz-avr.git src/plugins/
+npm install marantz-avr
+```
 
 ## Configuration
 
