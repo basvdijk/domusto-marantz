@@ -1,19 +1,18 @@
-import util from '../../util';
-import config from '../../config';
+import util from '../../src/util';
+import config from '../../src/config';
 
 // DOMUSTO
-import DomustoPlugin from '../../domusto/DomustoPlugin';
-import DomustoEmitter from '../../domusto/DomustoEmitter';
+import DomustoPlugin from '../../src/domusto/DomustoPlugin';
+import DomustoEmitter from '../../src/domusto/DomustoEmitter';
 
 // INTERFACES
-import { PluginCategories } from '../../domusto/interfaces/plugin/PluginMetaData';
-import { PluginConfiguration } from '../../domusto/interfaces/plugin/PluginConfiguration';
+import { PluginCategories, PluginConfiguration } from '../../domusto';
 
 // PLUGIN SPECIFIC
 let AVReceiver = require('marantz-avr');
 
 /**
- * GPIO plugin for DOMUSTO
+ * Marantz plugin for DOMUSTO Home Automation
  * @author Bas van Dijk
  * @version 0.0.1
  *
@@ -78,7 +77,7 @@ class DomustoMarantz extends DomustoPlugin {
             case 'source':
 
                 this.hardwareInstance.setInputSource(device.protocol.subType).then(res => {
-                    // onSucces();
+
                 }, error => console.log(error));
                 break;
 
