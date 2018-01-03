@@ -1,12 +1,12 @@
-import util from '../../src/util';
-import config from '../../src/config';
+import util from '../../util';
+import config from '../../config';
 
 // DOMUSTO
-import DomustoPlugin from '../../src/domusto/DomustoPlugin';
-import DomustoEmitter from '../../src/domusto/DomustoEmitter';
+import DomustoPlugin from '../../domusto/DomustoPlugin';
+import DomustoEmitter from '../../domusto/DomustoEmitter';
 
 // INTERFACES
-import { PluginCategories, PluginConfiguration } from '../../domusto';
+import { PluginCategories, PluginConfiguration } from '../../../domusto';
 
 // PLUGIN SPECIFIC
 let AVReceiver = require('marantz-avr');
