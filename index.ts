@@ -6,7 +6,7 @@ import DomustoPlugin from '../../domusto/DomustoPlugin';
 import DomustoEmitter from '../../domusto/DomustoEmitter';
 
 // INTERFACES
-import { PluginCategories, PluginConfiguration } from '../../../domusto';
+import { Domusto } from '../../domusto/DomustoInterfaces';
 
 // PLUGIN SPECIFIC
 let AVReceiver = require('marantz-avr');
@@ -26,12 +26,12 @@ class DomustoMarantz extends DomustoPlugin {
      * @param {any} Plugin configuration as defined in the config.js file
      * @memberof DomustoMarantz
      */
-    constructor(pluginConfiguration: PluginConfiguration) {
+    constructor(pluginConfiguration: Domusto.PluginConfiguration) {
 
         super({
             plugin: 'Marantz-avr remote',
             author: 'Bas van Dijk',
-            category: PluginCategories.audio,
+            category: Domusto.PluginCategories.audio,
             version: '0.0.1',
             website: 'http://domusto.com'
         });
