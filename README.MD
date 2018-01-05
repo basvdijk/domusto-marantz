@@ -19,8 +19,7 @@ description:  Control your Marantz receiver e.g. power, volume, mute etc.
 
 Execute in the domusto-server folder:
 ```sh
-git clone git@github.com:basvdijk/domusto-marantz.git src/plugins/domusto-marantz
-npm install marantz-avr
+$ ./domusto.js plugin add basvdijk/domusto-marantz
 ```
 
 ## Configuration
@@ -36,7 +35,8 @@ npm install marantz-avr
     debug: true,
     type: 'MARANTZ',
     settings: {
-        ip: '192.168.178.1'
+        ip: '192.168.178.1',  // IP address of the Marantz device
+        pollDelay: 5000       // (optional) ms between polls, default: 10000
     }
 }
 ```

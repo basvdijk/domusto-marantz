@@ -4,7 +4,7 @@
   "description": "Marantz receiver plugin for DOMUSTO home automation",
   "main": "index.js",
   "dependencies": {
-    "marantz-avr": "^1.1.0"
+    "marantz-avr": "basvdijk/marantz-avr"
   },
   "devDependencies": {},
   "scripts": {

@@ -4,9 +4,11 @@ import config from '../../config';
 // DOMUSTO
 import DomustoPlugin from '../../domusto/DomustoPlugin';
 import DomustoEmitter from '../../domusto/DomustoEmitter';
+import DomustoSignalHub from '../../domusto/DomustoSignalHub';
 
 // INTERFACES
 import { Domusto } from '../../domusto/DomustoInterfaces';
+import DomustoDevicesManager from '../../domusto/DomustoDevicesManager';
 
 // PLUGIN SPECIFIC
 let AVReceiver = require('marantz-avr');
@@ -36,69 +38,63 @@ class DomustoMarantz extends DomustoPlugin {
             website: 'http://domusto.com'
         });
 
-        this.pluginConfiguration = pluginConfiguration;
-
+        // Initialize hardware plugin
         let receiver = new AVReceiver(pluginConfiguration.settings.ip);
         this.hardwareInstance = receiver;
 
-        receiver.getState().then(
-            res => console.log(res),
-            error => console.log(error)
-        );
+        // Poll current receiver status
+        this.refreshReceiverStatus();
 
-        // this.refreshReceiverStatus();
-
+        // Start polling receiver on interval
+        setInterval(() => this.refreshReceiverStatus(), pluginConfiguration.settings.pollInterval | 10000);
 
     }
 
-    // refreshReceiverStatus() {
+    onSignalReceivedForPlugin(signal: Domusto.Signal) {
 
-    //     this.onNewInputData({
-    //         pluginId: this._pluginConfiguration.type,
-    //         deviceId: 'mute',
-    //         command: 'on'
-    //     });
+        console.log('Marantz', signal);
 
-    // }
-
-    outputCommand(device, command, onSucces) {
-
-        console.log('Marantz output', command);
-
-        switch (device.protocol.outputId) {
+        switch (signal.type) {
 
             case 'power':
 
-                this.hardwareInstance.setPowerState(command === 'on').then(res => {
-                    onSucces({ state: command === 'on' ? 'on' : 'off' });
+                this.hardwareInstance.setPowerState(signal.data['state'] === 'on').then(res => {
+                    this.broadcastSignal('power', {
+                        state: signal.data['state']
+                    });
                 }, error => console.log(error));
                 break;
 
             case 'source':
-
-                this.hardwareInstance.setInputSource(device.protocol.subType).then(res => {
-
+                this.hardwareInstance.setInputSource(signal.type).then(res => {
                 }, error => console.log(error));
                 break;
 
             case 'mute':
 
-                this.hardwareInstance.setMuteState(command === 'on').then(res => {
-                    onSucces({ state: command === 'on' ? 'on' : 'off' });
+                this.hardwareInstance.setMuteState(signal.data['state'] === 'on').then(res => {
+                    this.broadcastSignal('mute', {
+                        state: signal.data['state']
+                    });
                 }, error => console.log(error));
                 break;
 
             case 'volume':
 
-                switch (command) {
+                switch (signal.data['state']) {
                     case 'off':
                         this.hardwareInstance.volumeUp().then(res => {
-                            onSucces({ state: command === 'on' ? 'on' : 'off' });
+                            this.broadcastSignal('volume', {
+                                state: signal.data['state']
+                            });
                         }, error => console.log(error));
                         break;
+
                     case 'on':
                         this.hardwareInstance.volumeDown().then(res => {
-                            onSucces({ state: command === 'on' ? 'on' : 'off' });
+                            this.broadcastSignal('volume', {
+                                state: signal.data['state']
+                            });
                         }, error => console.log(error));
                         break;
                 }
@@ -106,6 +102,65 @@ class DomustoMarantz extends DomustoPlugin {
                 break;
 
         }
+    }
+
+    /**
+     * Polls the receiver and broadcast the status to the Signal Hub
+     *
+     * @memberof DomustoMarantz
+     */
+    refreshReceiverStatus() {
+
+        this.hardwareInstance.getState().then(
+            res => {
+
+                DomustoSignalHub.broadcastSignal({
+                    sender: Domusto.SignalSender.plugin,
+                    pluginId: 'MARANTZ',
+                    type: 'power',
+                    data: {
+                        state: res.power ? 'on' : 'off'
+                    }
+                });
+
+                DomustoSignalHub.broadcastSignal({
+                    sender: Domusto.SignalSender.plugin,
+                    pluginId: 'MARANTZ',
+                    type: 'input',
+                    data: {
+                        state: res.input
+                    }
+                });
+
+                DomustoSignalHub.broadcastSignal({
+                    sender: Domusto.SignalSender.plugin,
+                    pluginId: 'MARANTZ',
+                    type: 'volume',
+                    data: {
+                        state: res.volumeLevel
+                    }
+                });
+
+                DomustoSignalHub.broadcastSignal({
+                    sender: Domusto.SignalSender.plugin,
+                    pluginId: 'MARANTZ',
+                    type: 'mute',
+                    data: {
+                        state: res.mute ? 'on' : 'off'
+                    }
+                });
+
+                DomustoSignalHub.broadcastSignal({
+                    sender: Domusto.SignalSender.plugin,
+                    pluginId: 'MARANTZ',
+                    type: 'surroundMode',
+                    data: {
+                        state: res.surroundMode
+                    }
+                });
+            },
+            error => console.log(error)
+        );
 
     }
 
