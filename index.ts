@@ -5,10 +5,10 @@ import config from '../../config';
 import DomustoPlugin from '../../domusto/DomustoPlugin';
 import DomustoEmitter from '../../domusto/DomustoEmitter';
 import DomustoSignalHub from '../../domusto/DomustoSignalHub';
+import DomustoDevicesManager from '../../domusto/DomustoDevicesManager';
 
 // INTERFACES
 import { Domusto } from '../../domusto/DomustoInterfaces';
-import DomustoDevicesManager from '../../domusto/DomustoDevicesManager';
 
 // PLUGIN SPECIFIC
 let AVReceiver = require('marantz-avr');
@@ -52,9 +52,7 @@ class DomustoMarantz extends DomustoPlugin {
 
     onSignalReceivedForPlugin(signal: Domusto.Signal) {
 
-        console.log('Marantz', signal);
-
-        switch (signal.type) {
+        switch (signal.deviceId.split('-')[0]) {
 
             case 'power':
 
@@ -66,7 +64,7 @@ class DomustoMarantz extends DomustoPlugin {
                 break;
 
             case 'source':
-                this.hardwareInstance.setInputSource(signal.type).then(res => {
+                this.hardwareInstance.setInputSource(signal.deviceId.split('-')[1]).then(res => {
                 }, error => console.log(error));
                 break;
 
@@ -117,7 +115,7 @@ class DomustoMarantz extends DomustoPlugin {
                 DomustoSignalHub.broadcastSignal({
                     sender: Domusto.SignalSender.plugin,
                     pluginId: 'MARANTZ',
-                    type: 'power',
+                    deviceId: 'power',
                     data: {
                         state: res.power ? 'on' : 'off'
                     }
@@ -126,7 +124,7 @@ class DomustoMarantz extends DomustoPlugin {
                 DomustoSignalHub.broadcastSignal({
                     sender: Domusto.SignalSender.plugin,
                     pluginId: 'MARANTZ',
-                    type: 'input',
+                    deviceId: 'input',
                     data: {
                         state: res.input
                     }
@@ -135,7 +133,7 @@ class DomustoMarantz extends DomustoPlugin {
                 DomustoSignalHub.broadcastSignal({
                     sender: Domusto.SignalSender.plugin,
                     pluginId: 'MARANTZ',
-                    type: 'volume',
+                    deviceId: 'volume',
                     data: {
                         state: res.volumeLevel
                     }
@@ -144,7 +142,7 @@ class DomustoMarantz extends DomustoPlugin {
                 DomustoSignalHub.broadcastSignal({
                     sender: Domusto.SignalSender.plugin,
                     pluginId: 'MARANTZ',
-                    type: 'mute',
+                    deviceId: 'mute',
                     data: {
                         state: res.mute ? 'on' : 'off'
                     }
@@ -153,7 +151,7 @@ class DomustoMarantz extends DomustoPlugin {
                 DomustoSignalHub.broadcastSignal({
                     sender: Domusto.SignalSender.plugin,
                     pluginId: 'MARANTZ',
-                    type: 'surroundMode',
+                    deviceId: 'surroundMode',
                     data: {
                         state: res.surroundMode
                     }

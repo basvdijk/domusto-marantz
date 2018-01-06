@@ -41,7 +41,7 @@ $ ./domusto.js plugin add basvdijk/domusto-marantz
 }
 ```
 
-## Example controls 
+## Example devices
 ```js
 
 // Power on/off
@@ -54,8 +54,7 @@ $ ./domusto.js plugin add basvdijk/domusto-marantz
     subType: 'on/off',
     protocol: {
         pluginId: 'MARANTZ',
-        type: 'power',
-        subType: 'on/off'
+        deviceId: 'power',
     }
 },
 
@@ -69,8 +68,7 @@ $ ./domusto.js plugin add basvdijk/domusto-marantz
     subType: 'on/off',
     protocol: {
         pluginId: 'MARANTZ',
-        type: 'mute',
-        subType: 'on/off'
+        deviceId: 'mute',
     }
 },
 
@@ -84,8 +82,7 @@ $ ./domusto.js plugin add basvdijk/domusto-marantz
     subType: 'up/down',
     protocol: {
         pluginId: 'MARANTZ',
-        type: 'volume',
-        subType: 'up/down'
+        deviceId: 'volume',
     }
 },
 ```
@@ -121,8 +118,8 @@ Valid values for protocol subType:
     subType: 'momentary',
     protocol: {
         pluginId: 'MARANTZ',
-        outputId: 'source',
-        source: 'GAME'
+        deviceId: 'source',
+        value: 'GAME'
     }
 },
 {
@@ -134,8 +131,8 @@ Valid values for protocol subType:
     subType: 'momentary',
     protocol: {
         pluginId: 'MARANTZ',
-        outputId: 'source',
-        source: 'MPLAY'
+        deviceId: 'source',
+        value: 'MPLAY'
     }
 },
 
