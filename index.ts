@@ -1,4 +1,3 @@
-import util from '../../util';
 import config from '../../config';
 
 // DOMUSTO
@@ -60,12 +59,12 @@ class DomustoMarantz extends DomustoPlugin {
                     this.broadcastSignal('power', {
                         state: signal.data['state']
                     });
-                }, error => console.log(error));
+                }, error => this.console.error(error));
                 break;
 
             case 'source':
                 this.hardwareInstance.setInputSource(signal.deviceId.split('-')[1]).then(res => {
-                }, error => console.log(error));
+                }, error => this.console.error(error));
                 break;
 
             case 'mute':
@@ -74,7 +73,7 @@ class DomustoMarantz extends DomustoPlugin {
                     this.broadcastSignal('mute', {
                         state: signal.data['state']
                     });
-                }, error => console.log(error));
+                }, error => this.console.error(error));
                 break;
 
             case 'volume':
@@ -85,7 +84,7 @@ class DomustoMarantz extends DomustoPlugin {
                             this.broadcastSignal('volume', {
                                 state: signal.data['state']
                             });
-                        }, error => console.log(error));
+                        }, error => this.console.error(error));
                         break;
 
                     case 'on':
@@ -93,7 +92,7 @@ class DomustoMarantz extends DomustoPlugin {
                             this.broadcastSignal('volume', {
                                 state: signal.data['state']
                             });
-                        }, error => console.log(error));
+                        }, error => this.console.error(error));
                         break;
                 }
 
@@ -157,7 +156,7 @@ class DomustoMarantz extends DomustoPlugin {
                     }
                 });
             },
-            error => console.log(error)
+            error => this.console.error(error)
         );
 
     }
