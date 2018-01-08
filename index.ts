@@ -111,49 +111,24 @@ class DomustoMarantz extends DomustoPlugin {
         this.hardwareInstance.getState().then(
             res => {
 
-                DomustoSignalHub.broadcastSignal({
-                    sender: Domusto.SignalSender.plugin,
-                    pluginId: 'MARANTZ',
-                    deviceId: 'power',
-                    data: {
-                        state: res.power ? 'on' : 'off'
-                    }
+                this.broadcastSignal('power', {
+                    state: res.power ? 'on' : 'off'
                 });
 
-                DomustoSignalHub.broadcastSignal({
-                    sender: Domusto.SignalSender.plugin,
-                    pluginId: 'MARANTZ',
-                    deviceId: 'input',
-                    data: {
-                        state: res.input
-                    }
+                this.broadcastSignal('input', {
+                    state: res.input
                 });
 
-                DomustoSignalHub.broadcastSignal({
-                    sender: Domusto.SignalSender.plugin,
-                    pluginId: 'MARANTZ',
-                    deviceId: 'volume',
-                    data: {
-                        state: res.volumeLevel
-                    }
+                this.broadcastSignal('volume', {
+                    state: res.volumeLevel
                 });
 
-                DomustoSignalHub.broadcastSignal({
-                    sender: Domusto.SignalSender.plugin,
-                    pluginId: 'MARANTZ',
-                    deviceId: 'mute',
-                    data: {
-                        state: res.mute ? 'on' : 'off'
-                    }
+                this.broadcastSignal('mute', {
+                    state: res.mute ? 'on' : 'off'
                 });
 
-                DomustoSignalHub.broadcastSignal({
-                    sender: Domusto.SignalSender.plugin,
-                    pluginId: 'MARANTZ',
-                    deviceId: 'surroundMode',
-                    data: {
-                        state: res.surroundMode
-                    }
+                this.broadcastSignal('surroundMode', {
+                    state: res.surroundMode
                 });
             },
             error => this.console.error(error)
@@ -161,9 +136,6 @@ class DomustoMarantz extends DomustoPlugin {
 
     }
 
-    toString() {
-        return super.toString();
-    }
 }
 
 export default DomustoMarantz;
