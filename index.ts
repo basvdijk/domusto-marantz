@@ -1,6 +1,5 @@
-import config from '../../config';
-
 // DOMUSTO
+import config from '../../config';
 import DomustoPlugin from '../../domusto/DomustoPlugin';
 import DomustoEmitter from '../../domusto/DomustoEmitter';
 import DomustoSignalHub from '../../domusto/DomustoSignalHub';
@@ -27,6 +26,7 @@ class DomustoMarantz extends DomustoPlugin {
      * @param {any} Plugin configuration as defined in the config.js file
      * @memberof DomustoMarantz
      */
+
     constructor(pluginConfiguration: Domusto.PluginConfiguration) {
 
         super({
@@ -38,7 +38,7 @@ class DomustoMarantz extends DomustoPlugin {
         });
 
         // Initialize hardware plugin
-        let receiver = new AVReceiver(pluginConfiguration.settings.ip);
+        const receiver = new AVReceiver(pluginConfiguration.settings.ip);
         this.hardwareInstance = receiver;
 
         // Poll current receiver status
@@ -51,7 +51,10 @@ class DomustoMarantz extends DomustoPlugin {
 
     onSignalReceivedForPlugin(signal: Domusto.Signal) {
 
-        switch (signal.deviceId.split('-')[0]) {
+        const pluginDevice = signal.deviceId.split('-')[0];
+        const pluginDeviceValue = signal.deviceId.split('-')[1];
+
+        switch (pluginDevice) {
 
             case 'power':
 
@@ -63,7 +66,7 @@ class DomustoMarantz extends DomustoPlugin {
                 break;
 
             case 'source':
-                this.hardwareInstance.setInputSource(signal.deviceId.split('-')[1]).then(res => {
+                this.hardwareInstance.setInputSource(pluginDeviceValue).then(res => {
                 }, error => this.console.error(error));
                 break;
 
