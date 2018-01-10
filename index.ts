@@ -37,15 +37,26 @@ class DomustoMarantz extends DomustoPlugin {
             website: 'http://domusto.com'
         });
 
-        // Initialize hardware plugin
-        const receiver = new AVReceiver(pluginConfiguration.settings.ip);
-        this.hardwareInstance = receiver;
+        let isConfigurationValid = this.validateConfigurationAttributes(pluginConfiguration.settings, [
+            {
+                attribute: 'ip',
+                type: /^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$/
+            }
+        ]);
 
-        // Poll current receiver status
-        this.refreshReceiverStatus();
+        if (isConfigurationValid) {
 
-        // Start polling receiver on interval
-        setInterval(() => this.refreshReceiverStatus(), pluginConfiguration.settings.pollInterval | 10000);
+            // Initialize hardware plugin
+            const receiver = new AVReceiver(pluginConfiguration.settings.ip);
+            this.hardwareInstance = receiver;
+
+            // Poll current receiver status
+            this.refreshReceiverStatus();
+
+            // Start polling receiver on interval
+            setInterval(() => this.refreshReceiverStatus(), pluginConfiguration.settings.pollInterval | 10000);
+
+        }
 
     }
 
