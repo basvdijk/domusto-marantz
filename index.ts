@@ -1,7 +1,6 @@
 // DOMUSTO
 import config from '../../config';
 import DomustoPlugin from '../../domusto/DomustoPlugin';
-import DomustoEmitter from '../../domusto/DomustoEmitter';
 import DomustoSignalHub from '../../domusto/DomustoSignalHub';
 import DomustoDevicesManager from '../../domusto/DomustoDevicesManager';
 
