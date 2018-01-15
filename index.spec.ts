@@ -1,14 +1,9 @@
 import DomustoPlugin from '../../domusto/DomustoPlugin';
 import * as proxyquire from 'proxyquire';
-import * as mocha from 'mocha';
-import * as assert from 'assert';
-import { suite, test, slow, timeout } from 'mocha-typescript';
 import * as sinon from 'sinon';
-import * as should from 'should';
 import { Domusto } from '../../domusto/DomustoInterfaces';
-import { setTimeout } from 'timers';
 
-describe('Plugin DomustoMarantz', function () {
+describe('Plugin DomustoMarantz', () => {
 
     let DomustoMarantzProxy;
     let DomustoPluginProxy;
