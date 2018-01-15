@@ -37,7 +37,9 @@ class DomustoMarantz extends DomustoPlugin {
             website: 'http://domusto.com'
         });
 
-        let isConfigurationValid = this.validateConfigurationAttributes(pluginConfiguration.settings, [
+        this.pluginConfiguration = pluginConfiguration;
+
+        const isConfigurationValid = this.validateConfigurationAttributes(pluginConfiguration.settings, [
             {
                 attribute: 'ip',
                 type: /^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$/
@@ -55,6 +57,8 @@ class DomustoMarantz extends DomustoPlugin {
 
             // Start polling receiver on interval
             setInterval(() => this.refreshReceiverStatus(), pluginConfiguration.settings.pollInterval | 10000);
+
+            this.console.header(`${pluginConfiguration.id} plugin ready for sending / receiving data`);
 
         }
 
@@ -122,7 +126,7 @@ class DomustoMarantz extends DomustoPlugin {
      */
     refreshReceiverStatus() {
 
-        this.hardwareInstance.getState().then(
+         this.hardwareInstance.getState().then(
             res => {
 
                 this.broadcastSignal('power', {
