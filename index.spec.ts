@@ -13,7 +13,7 @@ describe('Plugin DomustoMarantz', () => {
 
     let marantzPluginInstance;
 
-    before(function () {
+    before(() => {
 
         broadcastSignalSpy = sinon.spy(DomustoPlugin.prototype, 'broadcastSignal');
 
@@ -51,6 +51,10 @@ describe('Plugin DomustoMarantz', () => {
             }
         });
 
+    });
+
+    after(() => {
+        broadcastSignalSpy.restore();
     });
 
     it('should execute refreshRecieverStatus from contructor', () => {
