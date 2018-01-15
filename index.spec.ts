@@ -11,7 +11,7 @@ describe('Plugin DomustoMarantz', () => {
 
     let marantzPluginInstance;
 
-    beforeEach(function () {
+    before(function () {
 
         broadcastSignalSpy = sinon.spy(DomustoPlugin.prototype, 'broadcastSignal');
 
@@ -25,6 +25,11 @@ describe('Plugin DomustoMarantz', () => {
                         volume: '-30db',
                         surroundMode: 'MOVIE'
                     });
+                });
+            },
+            setPowerState(state) {
+                return new Promise((resolve, reject) => {
+                    resolve(state);
                 });
             }
         });
@@ -46,6 +51,25 @@ describe('Plugin DomustoMarantz', () => {
 
     });
 
+    it('should execute refreshRecieverStatus from contructor', () => {
+        sinon.assert.called(broadcastSignalSpy);
+    });
+
+    it('should set the correct state when signal received', () => {
+
+        let signal: Domusto.Signal = {
+            pluginId: 'MARANTZ',
+            sender: Domusto.SignalSender.client,
+            deviceId: 'power',
+            data: {
+                state: 'on'
+            }
+        };
+
+        marantzPluginInstance.onSignalReceivedForPlugin(signal);
+        sinon.assert.calledWith(broadcastSignalSpy, 'power', { state: 'on' });
+    });
+
     it('should broadcast update on refreshRecieverStatus', () => {
 
         marantzPluginInstance.refreshReceiverStatus();
@@ -62,6 +86,7 @@ describe('Plugin DomustoMarantz', () => {
             process.exit();
 
         }, 100);
+
     });
 
 });
