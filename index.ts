@@ -5,7 +5,7 @@ import DomustoSignalHub from '../../domusto/DomustoSignalHub';
 import DomustoDevicesManager from '../../domusto/DomustoDevicesManager';
 
 // INTERFACES
-import { Domusto } from '../../domusto/DomustoInterfaces';
+import { Domusto } from '../../domusto/DomustoTypes';
 
 // PLUGIN SPECIFIC
 let AVReceiver = require('marantz-avr');
