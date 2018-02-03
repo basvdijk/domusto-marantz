@@ -9,6 +9,12 @@ website:      http://domusto.com
 description:  Control your Marantz receiver e.g. power, volume, mute etc.
 ```
 
+## Features
+- [x] Power on/off
+- [x] Mute on/off
+- [x] Volume up/down
+- [X] Select input
+
 ## Hardware needed
 - Marantz AVR
 
